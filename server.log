@@ -1,0 +1,4 @@
+127.0.0.1 - - [28/Jun/2025 18:06:48] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [28/Jun/2025 18:06:49] code 404, message File not found
+127.0.0.1 - - [28/Jun/2025 18:06:49] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [28/Jun/2025 18:08:43] "GET /interfaces-viewer.html HTTP/1.1" 200 -

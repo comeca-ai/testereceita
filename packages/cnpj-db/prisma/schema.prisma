@@ -1,0 +1,146 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Modelo para empresas
+model Empresa {
+  id                     Int                @id @default(autoincrement())
+  cnpjBase               String             @unique @map("cnpj_base") // 8 primeiros dígitos
+  razaoSocial            String             @map("razao_social")
+  naturezaJuridica       String             @map("natureza_juridica")
+  qualificacaoResponsavel String            @map("qualificacao_responsavel")
+  capitalSocial          Decimal?           @map("capital_social")
+  porte                  String?
+  enteFederativo         String?            @map("ente_federativo")
+
+  // Relacionamentos
+  estabelecimentos       Estabelecimento[]
+  socios                 Socio[]
+  simplesNacional        SimplesNacional?
+
+  // Metadados
+  createdAt              DateTime           @default(now()) @map("created_at")
+  updatedAt              DateTime           @updatedAt @map("updated_at")
+
+  @@map("empresas")
+}
+
+// Modelo para estabelecimentos
+model Estabelecimento {
+  id                     Int                @id @default(autoincrement())
+  cnpj                   String             @unique // CNPJ completo (14 dígitos)
+  cnpjBase               String             @map("cnpj_base") // 8 primeiros dígitos
+  nomeFantasia           String?            @map("nome_fantasia")
+  situacaoCadastral      String             @map("situacao_cadastral")
+  dataSituacaoCadastral  DateTime           @map("data_situacao_cadastral")
+  motivoSituacaoCadastral String?           @map("motivo_situacao_cadastral")
+  dataInicioAtividade    DateTime           @map("data_inicio_atividade")
+  cnaePrincipal          String             @map("cnae_principal")
+  
+  // Endereço
+  logradouro             String?
+  numero                 String?
+  complemento            String?
+  bairro                 String?
+  cep                    String?
+  municipio              String?
+  uf                     String?
+  
+  // Contato
+  telefone1              String?
+  telefone2              String?
+  email                  String?
+  
+  // Relacionamentos
+  empresa                Empresa            @relation(fields: [cnpjBase], references: [cnpjBase])
+  cnaesSecundarios       CnaeSecundario[]
+  
+  // Metadados
+  createdAt              DateTime           @default(now()) @map("created_at")
+  updatedAt              DateTime           @updatedAt @map("updated_at")
+
+  @@map("estabelecimentos")
+}
+
+// Modelo para CNAEs secundários
+model CnaeSecundario {
+  id                     Int                @id @default(autoincrement())
+  estabelecimentoId      Int                @map("estabelecimento_id")
+  codigo                 String
+  
+  // Relacionamentos
+  estabelecimento        Estabelecimento    @relation(fields: [estabelecimentoId], references: [id])
+  
+  // Metadados
+  createdAt              DateTime           @default(now()) @map("created_at")
+  updatedAt              DateTime           @updatedAt @map("updated_at")
+
+  @@map("cnaes_secundarios")
+}
+
+// Modelo para sócios
+model Socio {
+  id                     Int                @id @default(autoincrement())
+  cnpjBase               String             @map("cnpj_base")
+  identificador          String             // CPF ou CNPJ do sócio
+  nome                   String
+  qualificacao           String
+  dataEntrada            DateTime           @map("data_entrada")
+  pais                   String?
+  representanteLegal     String?            @map("representante_legal")
+  identificadorRepresentante String?        @map("identificador_representante")
+  
+  // Relacionamentos
+  empresa                Empresa            @relation(fields: [cnpjBase], references: [cnpjBase])
+  
+  // Metadados
+  createdAt              DateTime           @default(now()) @map("created_at")
+  updatedAt              DateTime           @updatedAt @map("updated_at")
+
+  @@map("socios")
+}
+
+// Modelo para Simples Nacional
+model SimplesNacional {
+  id                     Int                @id @default(autoincrement())
+  cnpjBase               String             @unique @map("cnpj_base")
+  optante                Boolean
+  dataOpcao              DateTime?          @map("data_opcao")
+  dataExclusao           DateTime?          @map("data_exclusao")
+  optanteMEI             Boolean?           @map("optante_mei")
+  
+  // Relacionamentos
+  empresa                Empresa            @relation(fields: [cnpjBase], references: [cnpjBase])
+  
+  // Metadados
+  createdAt              DateTime           @default(now()) @map("created_at")
+  updatedAt              DateTime           @updatedAt @map("updated_at")
+
+  @@map("simples_nacional")
+}
+
+// Modelo para controle de importação
+model ImportacaoRFB {
+  id                     Int                @id @default(autoincrement())
+  tipoArquivo            String             @map("tipo_arquivo")
+  nomeArquivo            String             @map("nome_arquivo")
+  dataImportacao         DateTime           @map("data_importacao")
+  registrosProcessados   Int                @map("registros_processados")
+  registrosSucesso       Int                @map("registros_sucesso")
+  registrosErro          Int                @map("registros_erro")
+  tempoProcessamento     Int                @map("tempo_processamento") // em milissegundos
+  
+  // Metadados
+  createdAt              DateTime           @default(now()) @map("created_at")
+  updatedAt              DateTime           @updatedAt @map("updated_at")
+
+  @@map("importacoes_rfb")
+}

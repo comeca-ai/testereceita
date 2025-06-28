@@ -1,0 +1,15 @@
+packages:
+  # Applications
+  - 'apps/*'
+  
+  # Shared packages
+  - 'packages/*'
+  
+  # Tools
+  - 'tools/*'
+  
+  # Exclude test and temporary directories
+  - '!**/test/**'
+  - '!**/dist/**'
+  - '!**/build/**'
+  - '!**/data/**'

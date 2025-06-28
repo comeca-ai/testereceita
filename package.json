@@ -1,0 +1,31 @@
+{
+  "name": "cnpj-agent",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Agente CNPJ - Processamento e consulta de dados da Receita Federal",
+  "scripts": {
+    "install": "pnpm install",
+    "download:rfb": "pnpm --filter cnpj-downloader start",
+    "etl:full": "pnpm --filter cnpj-etl start",
+    "api:start": "pnpm --filter cnpj-api start",
+    "dashboard:dev": "pnpm --filter cnpj-dashboard dev",
+    "test": "pnpm turbo run test",
+    "lint": "pnpm turbo run lint",
+    "type-check": "pnpm turbo run type-check"
+  },
+  "keywords": [
+    "cnpj",
+    "receita-federal",
+    "etl",
+    "api"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "turbo": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=9"
+  }
+}

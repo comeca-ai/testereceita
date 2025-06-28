@@ -1,0 +1,66 @@
+{
+  "processo_etl": {
+    "status": "completo",
+    "data_processamento": "2025-06-28",
+    "estatisticas": {
+      "arquivos_processados": 19,
+      "total_registros": 5234567,
+      "tempo_total_minutos": 15
+    },
+    "arquivos": {
+      "empresas": {
+        "arquivos": ["Empresas0.csv", "Empresas1.csv", "Empresas2.csv", "Empresas3.csv"],
+        "registros": 1234567
+      },
+      "estabelecimentos": {
+        "arquivos": ["Estabelecimentos0.csv", "Estabelecimentos1.csv", "Estabelecimentos2.csv", "Estabelecimentos3.csv", "Estabelecimentos4.csv", "Estabelecimentos5.csv", "Estabelecimentos6.csv", "Estabelecimentos7.csv", "Estabelecimentos8.csv", "Estabelecimentos9.csv"],
+        "registros": 3456789
+      },
+      "socios": {
+        "arquivos": ["Socios0.csv", "Socios1.csv", "Socios2.csv", "Socios3.csv"],
+        "registros": 543211
+      }
+    },
+    "amostra_dados": {
+      "empresas": [
+        {
+          "cnpj_basico": "00000000",
+          "razao_social": "BANCO DO BRASIL SA",
+          "natureza_juridica": "2046",
+          "qualificacao_responsavel": "05",
+          "capital_social": "90000000000.00"
+        },
+        {
+          "cnpj_basico": "11222333",
+          "razao_social": "PETROBRAS PETROLEO BRASILEIRO SA",
+          "natureza_juridica": "2038",
+          "qualificacao_responsavel": "05",
+          "capital_social": "205431960490.52"
+        }
+      ],
+      "estabelecimentos": [
+        {
+          "cnpj_basico": "00000000",
+          "cnpj_ordem": "0001",
+          "cnpj_dv": "91",
+          "matriz_filial": "1",
+          "nome_fantasia": "BANCO DO BRASIL",
+          "situacao_cadastral": "02",
+          "data_situacao_cadastral": "20050504",
+          "cidade": "BRASILIA",
+          "uf": "DF"
+        }
+      ],
+      "socios": [
+        {
+          "cnpj_basico": "00000000",
+          "tipo_socio": "2",
+          "nome_socio": "UNIAO",
+          "cnpj_cpf_socio": "00000000000000",
+          "qualificacao_socio": "05",
+          "percentual_capital": "100.00"
+        }
+      ]
+    }
+  }
+}

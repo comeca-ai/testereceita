@@ -1,0 +1,31 @@
+{
+  "name": "cnpj-processor",
+  "version": "1.0.0",
+  "description": "Processamento de arquivos da Receita Federal",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "lint": "eslint src --ext .ts",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "cnpj-types": "workspace:*",
+    "cnpj-core": "workspace:*",
+    "csv-parser": "^3.0.0",
+    "fast-csv": "^4.3.6",
+    "fs-extra": "^11.0.0",
+    "iconv-lite": "^0.6.3",
+    "p-limit": "^3.1.0",
+    "chalk": "^4.1.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.0",
+    "eslint": "^8.0.0",
+    "@types/node": "^20.0.0",
+    "@types/fs-extra": "^11.0.0",
+    "ts-node": "^10.9.0"
+  }
+}

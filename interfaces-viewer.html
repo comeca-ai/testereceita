@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interfaces - Aplicação Teste Receita</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background: #1976d2;
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        header h1 {
+            margin: 0;
+            text-align: center;
+            font-size: 2.5rem;
+        }
+        .nav {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .nav button {
+            padding: 10px 20px;
+            border: none;
+            background: #1976d2;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        .nav button:hover {
+            background: #1565c0;
+        }
+        .nav button.active {
+            background: #0d47a1;
+        }
+        .section {
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+        }
+        .section.active {
+            display: block;
+        }
+        .interface-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .interface-card h3 {
+            margin-top: 0;
+            color: #1976d2;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .interface-type {
+            background: #e3f2fd;
+            color: #1565c0;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: normal;
+        }
+        .enum-type {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+        pre {
+            background: #2d2d2d !important;
+            border-radius: 5px;
+            padding: 1rem !important;
+            overflow-x: auto;
+            margin: 0 !important;
+        }
+        code {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+        }
+        .file-path {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            font-family: monospace;
+            background: #f0f0f0;
+            padding: 5px 10px;
+            border-radius: 3px;
+            display: inline-block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .search-box {
+            margin-bottom: 2rem;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .summary-card {
+            background: #e3f2fd;
+            border-left: 4px solid #1976d2;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            border-radius: 4px;
+        }
+        .summary-card h4 {
+            margin-top: 0;
+            color: #1565c0;
+        }
+        .summary-card ul {
+            margin: 0.5rem 0;
+            padding-left: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Interfaces TypeScript - Aplicação Teste Receita</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Buscar interfaces..." onkeyup="filterInterfaces()">
+        </div>
+
+        <div class="nav">
+            <button class="active" onclick="showSection('cnpj-types')">Tipos CNPJ</button>
+            <button onclick="showSection('processor')">Processador</button>
+            <button onclick="showSection('dashboard')">Dashboard</button>
+            <button onclick="showSection('file-processor')">Processador de Arquivos</button>
+            <button onclick="showSection('all')">Todas</button>
+        </div>
+
+        <!-- Seção: Tipos CNPJ -->
+        <div id="cnpj-types" class="section active">
+            <h2>Interfaces de Tipos CNPJ</h2>
+            <div class="file-path">packages/cnpj-types/src/index.ts</div>
+            
+            <div class="summary-card">
+                <h4>Resumo</h4>
+                <ul>
+                    <li><strong>Interfaces de Entidades:</strong> CNPJ, Endereco, Contato, Socio, DadosSimples</li>
+                    <li><strong>Interfaces de Controle:</strong> CNPJComponents, ValidationResult, ETLConfig, ProcessingStats</li>
+                    <li><strong>Interfaces de Consulta:</strong> CNPJQueryFilters</li>
+                    <li><strong>Enums:</strong> SituacaoCadastral</li>
+                </ul>
+            </div>
+
+            <div class="interface-card">
+                <h3>CNPJ <span class="interface-type">interface</span></h3>
+                <pre><code class="language-typescript">export interface CNPJ {
+  cnpj: string;
+  razaoSocial: string;
+  nomeFantasia?: string;
+  situacaoCadastral: SituacaoCadastral;
+  dataSituacaoCadastral: Date;
+  motivoSituacaoCadastral?: string;
+  naturezaJuridica: string;
+  dataAbertura: Date;
+  cnaePrincipal: string;
+  cnaeSecundarios?: string[];
+  endereco: Endereco;
+  contato?: Contato;
+  capitalSocial?: number;
+  porte?: string;
+  socios?: Socio[];
+  simples?: DadosSimples;
+}</code></pre>
+            </div>
+
+            <div class="interface-card">
+                <h3>SituacaoCadastral <span class="interface-type enum-type">enum</span></h3>
+                <pre><code class="language-typescript">export enum SituacaoCadastral {
+  ATIVA = 'ATIVA',
+  BAIXADA = 'BAIXADA',
+  INAPTA = 'INAPTA',
+  SUSPENSA = 'SUSPENSA',
+  NULA = 'NULA'
+}</code></pre>
+            </div>
+
+            <div class="interface-card">
+                <h3>Endereco <span class="interface-type">interface</span></h3>
+                <pre><code class="language-typescript">export interface Endereco {
+  logradouro: string;
+  numero: string;
+  complemento?: string;
+  bairro: string;
+  cep: string;
+  municipio: string;
+  uf: string;
+}</code></pre>
+            </div>
+
+            <div class="interface-card">
+                <h3>Contato <span class="interface-type">interface</span></h3>
+                <pre><code class="language-typescript">export interface Contato {
+  telefone?: string;
+  email?: string;
+}</code></pre>
+            </div>
+
+            <div class="interface-card">
+                <h3>Socio <span class="interface-type">interface</span></h3>
+                <pre><code class="language-typescript">export interface Socio {
+  nome: string;
+  cpfCnpj: string;
+  qualificacao: string;
+  dataEntrada: Date;
+  pais?: string;
+  representanteLegal?: string;
+  cpfRepresentante?: string;
+}</code></pre>
+            </div>
+
+            <div class="interface-card">
+                <h3>DadosSimples <span class="interface-type">interface</span></h3>
+                <pre><code class="language-typescript">export interface DadosSimples {
+  optante: boolean;
+  dataOpcao?: Date;
+  dataExclusao?: Date;
+  optanteMEI?: boolean;
+}</code></pre>
+            </div>
+
+            <div class="interface-card">
+                <h3>CNPJComponents <span class="interface-type">interface</span></h3>
+                <pre><code class="language-typescript">export interface CNPJComponents {
+  base: string;        // Primeiros 8 dígitos
+  ordem: string;       // Dígitos 9-12 (estabelecimento)
+  verificador: string; // Últimos 2 dígitos
+}</code></pre>
+            </div>
+
+            <div class="interface-card">
+                <h3>ValidationResult <span class="interface-type">interface</span></h3>
+                <pre><code class="language-typescript">export interface ValidationResult {
+  isValid: boolean;
+  errors: string[];
+}</code></pre>
+            </div>
+
+            <div class="interface-card">
+                <h3>ETLConfig <span class="interface-type">interface</span></h3>
+                <pre><code class="language-typescript">export interface ETLConfig {
+  rfbBasePath: string;
+  tempDbPath?: string;
+  batchSize?: number;
+  logLevel?: 'debug' | 'info' | 'warn' | 'error';
+}</code></pre>
+            </div>
+
+            <div class="interface-card">
+                <h3>ProcessingStats <span class="interface-type">interface</span></h3>
+                <pre><code class="language-typescript">export interface ProcessingStats {
+  totalProcessed: number;
+  totalSuccess: number;
+  totalErrors: number;
+  startTime: Date;
+  endTime?: Date;
+  elapsedTimeMs?: number;
+}</code></pre>
+            </div>
+
+            <div class="interface-card">
+                <h3>CNPJQueryFilters <span class="interface-type">interface</span></h3>
+                <pre><code class="language-typescript">export interface CNPJQueryFilters {
+  cnpj?: string;
+  razaoSocial?: string;
+  nomeFantasia?: string;
+  situacaoCadastral?: SituacaoCadastral;
+  uf?: string;
+  municipio?: string;
+  bairro?: string;
+  cnaePrincipal?: string;
+  porte?: string;
+  dataAberturaInicio?: Date;
+  dataAberturaFim?: Date;
+  optanteSimples?: boolean;
+  optanteMEI?: boolean;
+  limit?: number;
+  offset?: number;
+}</code></pre>
+            </div>
+        </div>
+
+        <!-- Seção: Processador -->
+        <div id="processor" class="section">
+            <h2>Interfaces do Processador CNPJ</h2>
+            <div class="file-path">cnpj-processor-example.ts</div>
+            
+            <div class="summary-card">
+                <h4>Resumo</h4>
+                <ul>
+                    <li><strong>Validação:</strong> CNPJValidationResult, CNPJComponents</li>
+                    <li><strong>Dados RFB:</strong> CompanyData, EstablishmentData, PartnerData</li>
+                    <li><strong>Endereço e Contato:</strong> AddressData, ContactData</li>
+                    <li><strong>Enums:</strong> CompanySize, MatrixBranch, RegistrationStatus</li>
+                </ul>
+            </div>
+
+            <div class="interface-card">
+                <h3>CNPJValidationResult <span class="interface-type">interface</span></h3>
+                <pre><code class="language-typescript">export interface CNPJValidationResult {
+  isValid: boolean;
+  cnpj: string;
+  formatted: string;
+  errors: string[];
+}</code></pre>
+            </div>
+
+            <div class="interface-card">
+                <h3>CNPJComponents <span class="interface-type">interface</span></h3>
+                <pre><code class="language-typescript">export interface CNPJComponents {
+  base: string;        // First 8 digits
+  order: string;       // Digits 9-12 (establishment)
+  verifier: string;    // Last 2 digits
+}</code></pre>
+            </div>
+
+            <div class="interface-card">
+                <h3>CompanyData <span class="interface-type">interface</span></h3>
+                <pre><code class="language-typescript">export interface CompanyData {
+  cnpjBase: string;
+  corporateName: string;
+  legalNature: string;
+  responsibleQualification: string;
+  shareCapital: number;
+  companySize: CompanySize;
+  federativeEntity?: string;
+}</code></pre>
+            </div>
+
+            <div class="interface-card">
+                <h3>EstablishmentData <span class="interface-type">interface</span></h3>
+                <pre><code class="language-typescript">export interface EstablishmentData {
+  cnpjBase: string;
+  cnpjOrder: string;
+  cnpjVerifier: string;
+  fullCnpj: string;
+  matrixBranch: MatrixBranch;
+  tradeName?: string;
+  registrationStatus: RegistrationStatus;
+  statusDate?: Date;
+  statusReason?: string;
+  citySituation?: string;
+  situationDate?: Date;
+  situationReason?: string;
+  startDate?: Date;
+  mainCnae?: string;
+  secondaryCnaes?: string[];
+  address: AddressData;
+  contact: ContactData;
+  specialSituation?: string;
+  specialSituationDate?: Date;
+}</code></pre>
+            </div>
+
+            <div class="interface-card">
+                <h3>AddressData <span class="interface-type">interface</span></h3>
+                <pre><code class="language-typescript">export interface AddressData {
+  typeOfLogradouro?: string;
+  logradouro?: string;
+  number?: string;
+  complement?: string;
+  neighborhood?: string;
+  cep?: string;
+  uf?: string;
+  municipality?: string;
+  municipalityCode?: string;
+}</code></pre>
+            </div>
+
+            <div class="interface-card">
+                <h3>ContactData <span class="interface-type">interface</span></h3>
+                <pre><code class="language-typescript">export interface ContactData {
+  ddd1?: string;
+  phone1?: string;
+  ddd2?: string;
+  phone2?: string;
+  dddFax?: string;
+  fax?: string;
+  email?: string;
+}</code></pre>
+            </div>
+
+            <div class="interface-card">
+                <h3>PartnerData <span class="interface-type">interface</span></h3>
+                <pre><code class="language-typescript">export interface PartnerData {
+  cnpjBase: string;
+  partnerIdentifier: number;
+  partnerName: string;
+  partnerDocument: string;
+  qualificationCode: string;
+  entryDate?: Date;
+  countryCode?: string;
+  legalRepresentative?: string;
+  representativeQualification?: string;
+  ageRange?: number;
+}</code></pre>
+            </div>
+
+            <div class="interface-card">
+                <h3>CompanySize <span class="interface-type enum-type">enum</span></h3>
+                <pre><code class="language-typescript">export enum CompanySize {
+  NOT_INFORMED = '00',
+  MICRO = '01',
+  SMALL = '03',
+  OTHERS = '05'
+}</code></pre>
+            </div>
+
+            <div class="interface-card">
+                <h3>MatrixBranch <span class="interface-type enum-type">enum</span></h3>
+                <pre><code class="language-typescript">export enum MatrixBranch {
+  MATRIX = '1',
+  BRANCH = '2'
+}</code></pre>
+            </div>
+        </div>
+
+        <!-- Seção: Dashboard -->
+        <div id="dashboard" class="section">
+            <h2>Interfaces do Dashboard React</h2>
+            <div class="file-path">apps/cnpj-dashboard/src/</div>
+            
+            <div class="summary-card">
+                <h4>Resumo</h4>
+                <ul>
+                    <li><strong>Busca:</strong> SearchResult com dados completos de empresa</li>
+                    <li><strong>Listagem:</strong> Interfaces para exibição de dados em tabelas</li>
+                    <li><strong>Paginação:</strong> PaginatedResponse genérica</li>
+                </ul>
+            </div>
+
+            <div class="interface-card">
+                <h3>SearchResult <span class="interface-type">interface</span></h3>
+                <div class="file-path">apps/cnpj-dashboard/src/pages/search/CNPJSearch.tsx</div>
+                <pre><code class="language-typescript">interface SearchResult {
+  empresa: {
+    cnpjBase: string;
+    razaoSocial: string;
+    naturezaJuridica: string;
+    porte: string;
+    capitalSocial: number;
+  };
+  estabelecimento: {
+    cnpj: string;
+    nomeFantasia: string;
+    situacaoCadastral: string;
+    cnaePrincipal: string;
+    logradouro: string;
+    numero: string;
+    complemento: string;
+    bairro: string;
+    municipio: string;
+    uf: string;
+    cep: string;
+  };
+  simplesNacional?: {
+    optante: boolean;
+    optanteMEI: boolean;
+    dataOpcao?: string;
+  };
+}</code></pre>
+            </div>
+
+            <div class="interface-card">
+                <h3>Empresa (Lista) <span class="interface-type">interface</span></h3>
+                <div class="file-path">apps/cnpj-dashboard/src/pages/companies/CompanyList.tsx</div>
+                <pre><code class="language-typescript">interface Empresa {
+  id: number;
+  cnpjBase: string;
+  razaoSocial: string;
+  naturezaJuridica: string;
+  capitalSocial: number;
+  porte: string;
+}</code></pre>
+            </div>
+
+            <div class="interface-card">
+                <h3>Estabelecimento (Lista) <span class="interface-type">interface</span></h3>
+                <div class="file-path">apps/cnpj-dashboard/src/pages/establishments/EstablishmentList.tsx</div>
+                <pre><code class="language-typescript">interface Estabelecimento {
+  id: number;
+  cnpj: string;
+  nomeFantasia: string;
+  situacaoCadastral: string;
+  dataSituacao: string;
+  municipio: string;
+  uf: string;
+}</code></pre>
+            </div>
+
+            <div class="interface-card">
+                <h3>Socio (Lista) <span class="interface-type">interface</span></h3>
+                <div class="file-path">apps/cnpj-dashboard/src/pages/partners/PartnerList.tsx</div>
+                <pre><code class="language-typescript">interface Socio {
+  id: number;
+  cnpjBase: string;
+  nomeSocio: string;
+  cpfCnpjSocio: string;
+  qualificacao: string;
+  dataEntrada: string;
+}</code></pre>
+            </div>
+
+            <div class="interface-card">
+                <h3>PaginatedResponse <span class="interface-type">interface</span></h3>
+                <pre><code class="language-typescript">interface PaginatedResponse&lt;T&gt; {
+  data: T[];
+  total: number;
+  page: number;
+  pageSize: number;
+}</code></pre>
+            </div>
+        </div>
+
+        <!-- Seção: Processador de Arquivos -->
+        <div id="file-processor" class="section">
+            <h2>Interfaces do Processador de Arquivos</h2>
+            <div class="file-path">packages/cnpj-processor/src/index.ts</div>
+            
+            <div class="summary-card">
+                <h4>Resumo</h4>
+                <ul>
+                    <li><strong>Layout:</strong> Definição de estrutura de arquivos RFB</li>
+                    <li><strong>Parsing:</strong> Opções para processamento de arquivos</li>
+                </ul>
+            </div>
+
+            <div class="interface-card">
+                <h3>RFBFileLayout <span class="interface-type">interface</span></h3>
+                <pre><code class="language-typescript">export interface RFBFileLayout {
+  columns: RFBColumn[];
+  delimiter?: string;
+  encoding?: string;
+}</code></pre>
+            </div>
+
+            <div class="interface-card">
+                <h3>RFBColumn <span class="interface-type">interface</span></h3>
+                <pre><code class="language-typescript">export interface RFBColumn {
+  name: string;
+  start: number;
+  end: number;
+  type: 'string' | 'number' | 'date';
+  nullable?: boolean;
+}</code></pre>
+            </div>
+
+            <div class="interface-card">
+                <h3>RFBParseOptions <span class="interface-type">interface</span></h3>
+                <pre><code class="language-typescript">export interface RFBParseOptions {
+  batchSize?: number;
+  onProgress?: (progress: number) => void;
+  validateData?: boolean;
+}</code></pre>
+            </div>
+        </div>
+
+        <!-- Seção: Todas -->
+        <div id="all" class="section">
+            <h2>Todas as Interfaces</h2>
+            <p>Esta seção mostra todas as interfaces organizadas por arquivo.</p>
+            <!-- Aqui seria repetido todo o conteúdo das outras seções -->
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+    <script>
+        function showSection(sectionId) {
+            // Esconde todas as seções
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove a classe active de todos os botões
+            document.querySelectorAll('.nav button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Mostra a seção selecionada
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Adiciona a classe active ao botão clicado
+            event.target.classList.add('active');
+            
+            // Re-highlight código
+            Prism.highlightAll();
+        }
+
+        function filterInterfaces() {
+            const searchValue = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.interface-card');
+            
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (text.includes(searchValue)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Highlight inicial
+        Prism.highlightAll();
+    </script>
+</body>
+</html>

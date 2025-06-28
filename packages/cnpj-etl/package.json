@@ -1,0 +1,40 @@
+{
+  "name": "cnpj-etl",
+  "version": "1.0.0",
+  "description": "Orquestração do ETL de dados da Receita Federal",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "etl:full": "ts-node src/cli.ts full",
+    "etl:empresas": "ts-node src/cli.ts empresas",
+    "etl:estabelecimentos": "ts-node src/cli.ts estabelecimentos",
+    "etl:socios": "ts-node src/cli.ts socios",
+    "etl:simples": "ts-node src/cli.ts simples",
+    "test": "vitest run",
+    "lint": "eslint src --ext .ts",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "cnpj-types": "workspace:*",
+    "cnpj-core": "workspace:*",
+    "cnpj-db": "workspace:*",
+    "cnpj-processor": "workspace:*",
+    "commander": "^11.0.0",
+    "dotenv": "^16.0.0",
+    "chalk": "^4.1.2",
+    "ora": "^5.4.1",
+    "fs-extra": "^11.0.0",
+    "p-limit": "^3.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.0",
+    "eslint": "^8.0.0",
+    "@types/node": "^20.0.0",
+    "@types/fs-extra": "^11.0.0",
+    "ts-node": "^10.9.0"
+  }
+}

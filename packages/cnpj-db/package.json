@@ -1,0 +1,27 @@
+{
+  "name": "cnpj-db",
+  "version": "1.0.0",
+  "description": "Camada de banco de dados para o agente CNPJ",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "lint": "eslint src --ext .ts",
+    "type-check": "tsc --noEmit",
+    "db:migrate": "prisma migrate deploy",
+    "db:seed": "ts-node src/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.7.0",
+    "cnpj-types": "workspace:*"
+  },
+  "devDependencies": {
+    "prisma": "^5.7.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.0",
+    "eslint": "^8.0.0",
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.0"
+  }
+}
