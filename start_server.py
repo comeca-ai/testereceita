@@ -5,7 +5,8 @@ import os
 import sys
 
 PORT = 8082
-DIRECTORY = '/root/testereceita'
+# Serve files from the repository root by default
+DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 
 class MyHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
